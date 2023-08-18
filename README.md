@@ -1,7 +1,8 @@
-Steps install and execute
+install and execute
 
-   Steps:
-   ------
+
+      Steps:
+      ------
     pip3/brew install virtualenv
     virtualenv myEnv -p python3
     source myEnv/bin/activate
