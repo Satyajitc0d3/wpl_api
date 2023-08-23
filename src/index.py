@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, Response
+from flask_cors import CORS
 import pymysql
 
 app = Flask(__name__)
+CORS(app)
 
 def db_conn():
     conn = None
@@ -31,7 +33,7 @@ def players():
     if request.method == 'POST':
         try:
             cursor = conn.cursor()
-            payload = request.json
+            payload = request.get_json()
             sql_query = """INSERT INTO WPL_PLAYERS_2023 (EmployeeID, EmployeeName, MailID, PhoneNum, Role, RoleLevel, BattingHand, BowlingHand, TeamName, InsertDate, ModifiedDate) VALUES (%s, %s, %s, %s, %s, %s, '', '', '', '2023-08-18', '2023-08-18')"""
             cursor.execute(sql_query,(int(payload['EmployeeID']),payload['EmployeeName'],payload['MailID'],int(payload['PhoneNum']),payload['Role'],payload['RoleLevel']))
             conn.commit()
